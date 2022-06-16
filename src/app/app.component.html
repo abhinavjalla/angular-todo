@@ -1,0 +1,51 @@
+<div>
+  <p>Task Tracker</p>
+  <label>Add Task</label>
+  <input type="text" [(ngModel)]="newTask" />
+  <button (click)="addTask()">Add task</button>
+  <button (click)="clearToDo()">Remove all</button>
+</div>
+<hr />
+
+<p>To Do List</p>
+
+<div class="container" *ngFor="let item of toDoList; let index = index">
+  <div *ngIf="item.status === 'todo'">
+    <div class="inline">
+      <div class="wrapper">
+        <label id="item-name">Task {{ index + 1 }} :</label>
+        <div class="item-name">{{ item.Task }}</div>
+      </div>
+      <div class="wrapper">
+        <label id="item-name">Created :</label>
+        <div class="item-name">{{ item.Created }}</div>
+      </div>
+      <div>
+        <button (click)="editItem(index)">Edit</button>
+        <button (click)="completeTask(index)">Complete</button>
+      </div>
+    </div>
+    <div *ngIf="editToDo(index)">
+      <input type="text" [(ngModel)]="toDoList[index].Task" />
+      <button (click)="updateTask()">Save</button>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<p>Completed List</p>
+<div *ngIf="completedList().length > 0">
+  <table>
+    <tr>
+      <th *ngFor="let column of headers">
+        {{ column }}
+      </th>
+    </tr>
+    <tr *ngFor="let item of completedList(); let index = index">
+      <td *ngFor="let column of headers">
+        {{ item[column] }}
+      </td>
+    </tr>
+  </table>
+</div>
